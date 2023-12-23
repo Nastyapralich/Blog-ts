@@ -1,7 +1,11 @@
 @import "src/styles/colors";
 
 @mixin button {
-    width: 200px;
+    // width: 200px;
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 16px 32px;
     font-style: normal;
     font-weight: 600;
@@ -9,7 +13,7 @@
     line-height: 24px;
     box-sizing: border-box;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 4px;F
     &:hover {
       cursor: pointer;
     }

@@ -1,0 +1,17 @@
+.cardListContainer{
+    min-width: 1120px;
+    display: flex;
+}
+
+.bigandmedium{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+}
+
+.mediumContainer{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 736px;
+}

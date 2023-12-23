@@ -1,20 +1,23 @@
+import { useState } from "react";
+import "./App.css";
+import Burger from "./components/burger";
+import Button, { ButtonType } from "./components/button";
+import Input from "./components/input/input";
+import Title from "./components/title/title";
+import UserName from "./components/username/uersname";
+import Post, { PostCardSize } from "./components/postCard/card";
+import SignUp from "./pages/sigUp/signUp";
+import RegistrationConfirmation from "./pages/registrationConfirmation/registrationConfirmation";
+import SignIn from "./pages/signIn/signIn";
+import Success from "./pages/success/success";
+import SelectedPost from "./pages/selectedPost/selectedPost";
+import CardList from "./components/cardList/cardList";
+import AllPosts from "./pages/allPosts/allPosts";
 
-import './App.css';
-import Burger from './components/burger';
-import Button, { ButtonType } from './components/button';
-import Title from './components/title/title';
-import UserName from './components/username/uersname';
 
 function App() {
   return (
-   <div>
-    <Button type={ButtonType.Primary} title={'primary'} onClick={()=>{}} />
-    <Button type={ButtonType.Secondary} title={'secondary'} onClick={()=>{}} />
-    <Button type={ButtonType.Secondary_2} title={'secondary 2'} onClick={()=>{}} />
-    <UserName username={'Pralich Nastya'} />
-    <Title content={'Sign In'} />
-    <Burger />
-   </div>
+<SignIn/>
   );
 }
 

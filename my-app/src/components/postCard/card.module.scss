@@ -1,0 +1,284 @@
+// @import "src/styles/colors.scss";
+
+// * {
+//   padding: 0;
+//   margin: 0;
+//   box-sizing: border-box;
+// }
+
+// //общие стили
+
+// .content {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// .date {
+//     font-weight: 400;
+//     font-size: 16px;
+//     line-height: 24px;
+//     color: $gray;
+//     display: block;
+//     margin-bottom: 8px;
+//   }
+  
+//   .imgWrap img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     object-position: center;
+//   }
+
+//   .iconsWrap{
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding: 0 0 40px;
+//     border-bottom: 1px solid $medium;
+//   }
+  
+//   .likeIcons{
+//     display: flex;
+//     span{
+//         width: 24px;
+//         height: 24px;
+//         margin-right: 20px;
+//     }
+//   }
+
+//   .saveIcons{
+//     display: flex;
+//     span{
+//         margin-right: 20px;
+//     }
+//   }
+
+//   //large
+
+//   .large{
+//     max-width: 736px;
+//     .content {
+//         gap: 32px;
+//         margin-bottom: 31px; 
+        
+//         .textWrap {
+//         max-width: 442px;
+//         .titleText{
+//             color:$secondary;
+// font-family: Inter;
+// font-size: 32px;
+// font-style: normal;
+// font-weight: 700;
+// line-height: 44px; /* 137.5% */
+//         }
+//         .mainTextWrap p{
+//             color: $gray;
+// font-family: Inter;
+// font-size: 16px;
+// font-style: normal;
+// font-weight: 400;
+// line-height: 28px; /* 175% */
+//         }
+//       }
+//   }
+//       }
+     
+
+// //medium
+
+// .meduim{
+//  width: 352px;
+// // height: 452px;
+
+// .content {
+//     flex-direction: column-reverse;
+
+//     .textWrap{
+//         margin-top: 24px;
+//         .date{
+//             color:$gray;
+// font-family: Inter;
+// font-size: 16px;
+// font-style: normal;
+// font-weight: 400;
+// line-height: 24px; /* 150% */
+//         }
+//         .titleText{
+//             color: $secondary;
+// font-family: Inter;
+// font-size: 18px;
+// font-style: normal;
+// font-weight: 600;
+// line-height: 28px; 
+//         }
+//     }
+//   }
+
+
+// }
+
+
+@import "src/styles/colors.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+//общие стили
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: $gray;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.imgWrap {
+  width: 256px;
+  height: 244px;
+  object-fit: cover;
+  object-position: center;
+}
+.imgWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.iconsWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 40px;
+  border-bottom: 1px solid $medium;
+}
+
+.icons {
+  display: flex;
+  gap: 25px;
+}
+
+.icon {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// large
+
+.large {
+  width: 736px;
+  // height: 452px;
+  // margin-bottom: 40px;
+
+  .content {
+    gap: 32px;
+    margin-bottom: 31px;
+  }
+
+  .textWrap {
+    max-width: 442px;
+  }
+
+  .titleText {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 44px;
+    color: $secondary;
+    margin-bottom: 24px;
+
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  .mainText {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: $gray;
+  }
+
+  .cardImg {
+    width: 256px;
+    height: 244px;
+  }
+}
+
+//medium
+
+.medium {
+  width: 352px;
+height: 452px;
+margin-right: 15px;
+
+  .content {
+    flex-direction: column-reverse;
+  }
+
+  .textWrap {
+    max-width: 100%;
+    margin-bottom: 28px;
+  }
+
+  .titleText {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: $secondary;
+
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  .imgWrap {
+    width: 352px;
+    height: 246px;
+    margin-bottom: 24px;
+  }
+}
+
+//small
+
+.small {
+  width: 352px;
+  height: 206px;
+
+  .content {
+    margin-bottom: 24px;
+  }
+
+  .textWrap {
+    max-width: 222px;
+  }
+
+  .titleText{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: $secondary;
+
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  .imgWrap {
+    width: 96px;
+    height: 96px;
+  }
+}

@@ -1,0 +1,10 @@
+@import 'src/styles/colors.scss';
+
+.signIn{
+    margin-left: 5px;
+    &:hover{
+        cursor: pointer;
+        color: $primary;
+        border-bottom: 1px solid $primary;
+    }
+}
