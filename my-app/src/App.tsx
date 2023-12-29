@@ -1,24 +1,29 @@
+import React from "react";
 import { useState } from "react";
-import "./App.css";
-import Burger from "./components/burger";
-import Button, { ButtonType } from "./components/button";
-import Input from "./components/input/input";
-import Title from "./components/title/title";
-import UserName from "./components/username/uersname";
-import Post, { PostCardSize } from "./components/postCard/card";
-import SignUp from "./pages/sigUp/signUp";
-import RegistrationConfirmation from "./pages/registrationConfirmation/registrationConfirmation";
-import SignIn from "./pages/signIn/signIn";
-import Success from "./pages/success/success";
-import SelectedPost from "./pages/selectedPost/selectedPost";
-import CardList from "./components/cardList/cardList";
-import AllPosts from "./pages/allPosts/allPosts";
+import { Theme } from "./@types";
+import ThemeProvider from "./context/theme/Provider";
+import Router from "./pages/router";
+import Header from "./components/header/header";
+// import Router from "./pages/router";
+
 
 
 function App() {
-  return (
-<SignIn/>
-  );
+
+
+  const [themeValue, setThemeValue] = useState<Theme>(Theme.Light)
+
+
+  const onChangeTheme = (value: Theme) =>{
+    setThemeValue(value)
+  }
+
+return(
+<ThemeProvider themeValue={themeValue} onChangeTheme={onChangeTheme} >
+{/* <Header /> */}
+<Router />
+</ThemeProvider>
+)
 }
 
 export default App;

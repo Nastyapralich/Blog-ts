@@ -23,3 +23,8 @@ export enum TabsTypes {
     disabled: boolean;
   };
   export type TabsListType = Tab[];
+
+  export enum Theme{
+    Light = "light",
+    Dark = "dark",
+  }

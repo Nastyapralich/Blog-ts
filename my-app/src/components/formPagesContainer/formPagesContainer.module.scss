@@ -1,8 +1,9 @@
 @import 'src/styles/colors.scss';
 
 .container{
-    max-width: 1120px;
-    margin: 0 auto;
+    // max-width: 1120px;
+    // margin: 0 auto;
+    margin-top: 156px;
 }
 
 .text{
@@ -33,4 +34,17 @@ font-size: 16px;
 font-style: normal;
 font-weight: 500;
 line-height: 20px; /* 125% */
+}
+
+.darkContainer{
+    background-color: $secondary;
+    .title{
+        color: white;
+    }
+    .darkText{
+        color: white;
+    }
+    .darkAdditionalText{
+        color: white;
+    }
 }

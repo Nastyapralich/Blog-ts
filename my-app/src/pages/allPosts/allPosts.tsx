@@ -4,6 +4,7 @@ import Title from "../../components/title";
 import style from "./allPosts.module.scss";
 import { PostsList, TabsTypes } from "../../@types";
 import TabsList from "../../components/tabsList/tabsList";
+import { useThemeContext } from "../../context/theme/context";
 
 const MOCKARRAY = [
   {
@@ -179,6 +180,8 @@ const AllPosts = () => {
       }
     };
   
+    const {themeValue} = useThemeContext();
+    
     return (
       <div>
         <Title content={"Blog"}  />

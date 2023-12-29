@@ -127,6 +127,15 @@
 }
 
 //общие стили
+.dateDark{
+  color: white;
+}
+
+
+.mainTextWrapDark p{
+  color: white;
+}
+
 
 .content {
   display: flex;
@@ -214,6 +223,18 @@
     width: 256px;
     height: 244px;
   }
+
+  .titleTextDark{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: white;
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  
+  }
 }
 
 //medium
@@ -249,6 +270,15 @@ margin-right: 15px;
     height: 246px;
     margin-bottom: 24px;
   }
+
+  
+  .titleTextDark{
+    color: white;
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
 }
 
 //small
@@ -277,8 +307,19 @@ margin-right: 15px;
     }
   }
 
+
   .imgWrap {
     width: 96px;
     height: 96px;
   }
+
+  .titleTextDark{
+    color: white;
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
 }
+
+

@@ -1,14 +1,18 @@
-import { PostsList } from "../../@types";
+import classNames from "classnames";
+import { PostsList, Theme } from "../../@types";
 import PostCard, { PostCardSize } from "../postCard/card";
 import style from "./cardList.module.scss";
+import { useThemeContext } from "../../context/theme/context";
 
 interface CardListProps {
   cardsList: PostsList;
 }
 
 const CardList = (props: CardListProps) => {
+const {themeValue} = useThemeContext()
+
   return props.cardsList.length ? (
-    <div className={style.cardListContainer}>
+    <div className={classNames(style.cardListContainer, {[style.darkCardListContainer] : themeValue === Theme.Dark})}>
         <div className={style.bigandmedium}>
         <div className={style.mediumContainer}> 
  <PostCard size={PostCardSize.large} {...props.cardsList[0]} />

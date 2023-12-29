@@ -3,6 +3,8 @@ import style from "./card.module.scss";
 import { faBookmark, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { useThemeContext } from "../../context/theme/context";
+import { Theme } from "../../@types";
 
 
 export enum PostCardSize{
@@ -24,14 +26,16 @@ interface PostCardProps {
 
 const PostCard = (props: PostCardProps) => {
 
+  const {themeValue} = useThemeContext();
+
     const cardStyle = style[props.size] 
     return (
         <div className={classNames(cardStyle)}>
   <div className={classNames(style.content)}>
 <div className={classNames(style.textWrap)}>
-<span className={classNames(style.date)}>{props.date}</span>
-<div className={classNames(style.titleText)}>{props.title}</div>
-<div className={classNames(style.mainTextWrap)}>
+<span className={classNames(style.date, {[style.dateDark] : themeValue === Theme.Dark})}>{props.date}</span>
+<div className={classNames(style.titleText, {[style.titleTextDark] : themeValue === Theme.Dark})}>{props.title}</div>
+<div className={classNames(style.mainTextWrap, {[style.mainTextWrapDark] : themeValue === Theme.Dark})}>
 { props.size === 'large' && <p className={classNames(style.mainText)}>{props.text}</p>}
 </div>
 </div>

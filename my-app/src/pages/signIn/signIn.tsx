@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FormPageContainer from "../../components/formPagesContainer/formPagesContainer";
 import Input from "../../components/input/input";
 import style from "./sugnIn.module.scss";
+import { useThemeContext } from "../../context/theme/context";
 
 const SignIn = () => {
 
@@ -12,6 +13,8 @@ const SignIn = () => {
     console.log(email);
     console.log(123);
     }, [email])
+
+    const {themeValue} = useThemeContext();
     
   return (
     <FormPageContainer
@@ -20,7 +23,6 @@ const SignIn = () => {
       onSubmit={() => {}}
       additionalText={
         <div>
-          {" "}
           Don’t have an account? <span className={style.signIn}>Sign Up</span>
         </div>
       }

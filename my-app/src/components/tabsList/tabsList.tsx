@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Tab from "./tab/tab";
 import classNames from "classnames";
 
 import styles from "./tabsList.module.scss";
-import { TabsListType, TabsTypes } from "../../@types";
+import { TabsListType, TabsTypes, Theme } from "../../@types";
+import { useThemeContext } from "../../context/theme/context";
 
 type TabsListProps = {
   tabsList: TabsListType;
@@ -12,8 +13,11 @@ type TabsListProps = {
 };
 
 const TabsList: FC<TabsListProps> = ({ tabsList, activeTab, onTabClick }) => {
+
+  const {themeValue} = useThemeContext()
+
   return (
-    <div className={styles.tabsContainer}>
+    <div className={classNames(styles.tabsContainer, {[styles.darkTabsContainer] : themeValue === Theme.Dark})}>
       {tabsList.map(({ key, title, disabled }) => (
         <Tab
           key={key}

@@ -1,10 +1,13 @@
 import styles from './burger.module.scss'
 
-const Burger = () =>{
+interface BurgerProps{
+ onClick: () => void;
+}
+
+const Burger = (props:BurgerProps) =>{
 
     const toogleClass = () =>{
         const elements = document.getElementsByClassName('line');
-        console.log('elemnts', [...elements]);
         [...elements].forEach((element)=>{
           element.classList.toggle(styles.active)
         })

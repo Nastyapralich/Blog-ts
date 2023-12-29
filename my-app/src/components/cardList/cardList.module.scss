@@ -1,3 +1,5 @@
+@import 'src/styles/colors.scss';
+
 .cardListContainer{
     min-width: 1120px;
     display: flex;
@@ -14,4 +16,12 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 736px;
+}
+
+.darkCardListContainer{
+    background-color: $secondary;
+}
+
+.darkCardListContainer{
+    background-color: $secondary;
 }
