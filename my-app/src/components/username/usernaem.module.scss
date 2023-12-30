@@ -1,15 +1,17 @@
+@import "src/styles/colors";
+
 .userNameWrap{
     display: flex;
 align-items: center;
-    width: 200px;
-    background-color: blue;
+    // width: 200px;
+    background-color: $primary;
     padding: 10px 20px;
 }
 
 .fullName{
     width: 200px;
     display: flex;
-    background-color: blue;
+    background-color: $primary;
     color: white;
 }
 
