@@ -7,6 +7,7 @@ export type Post = {
     lesson_num: number;
     title: string;
     author?: number;
+    onMoreClick? : (post:Post) => void
 }
 
 export type PostsList = Post[]

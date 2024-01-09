@@ -15,8 +15,28 @@
     margin-bottom: 156px;
     position: fixed;
     z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
+.navIcons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    span{
+        color: white;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-style: 24px;
+        margin-right: 40px; 
+        border-right: 1px solid white;
+    }
+}
 .outletContainer{
     margin: 0 auto;
     flex: 1;

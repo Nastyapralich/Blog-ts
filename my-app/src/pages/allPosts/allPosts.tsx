@@ -5,6 +5,7 @@ import style from "./allPosts.module.scss";
 import { PostsList, TabsTypes } from "../../@types";
 import TabsList from "../../components/tabsList/tabsList";
 import { useThemeContext } from "../../context/theme/context";
+import SelectedPostModal from "./selectedPostModal/selectedPostModal";
 
 const MOCKARRAY = [
   {
@@ -187,6 +188,7 @@ const AllPosts = () => {
         <Title content={"Blog"}  />
         <TabsList tabsList={tabsList} activeTab={activeTab} onTabClick={onTabClick}/>
         <CardList cardsList={cardsList} />
+        <SelectedPostModal />
       </div>
     );
   };

@@ -10,18 +10,26 @@ import { useThemeContext } from "../../context/theme/context";
 import classNames from "classnames";
 import { Theme } from "../../@types";
 import UserName from "../username/uersname";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import Input from "../input/input";
 
 const Header = () => {
-
- const isLoggedIn = true
+  const isLoggedIn = false;
 
   const [isOpened, setOpened] = useState(false);
+  const [isSearch, setSearch] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   const handleMenuOpened = () => {
     setOpened(!isOpened);
     console.log(isOpened);
   };
 
+  const handleSearchOpen = () => {
+    setSearch(!isSearch);
+  };
   const navigate = useNavigate();
 
   const onLoginButtonClick = () => {
@@ -47,6 +55,32 @@ const Header = () => {
     >
       <div className={styles.header}>
         <Burger onClick={handleMenuOpened} isOpened={isOpened} />
+        <div className={styles.navIcons}>
+          <span >
+            {isSearch ? (
+              <div>
+                {" "}
+                <Input
+                  title={""}
+                  placeholder={"Ведите текст"}
+                  onChange={setInputValue}
+                  value={inputValue}
+                />
+                <span onClick={handleSearchOpen}>Х</span>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </span>
+          <div className={styles.navIcons}>
+            <span onClick={handleSearchOpen}><FontAwesomeIcon icon={faMagnifyingGlass}/></span>
+             <span onClick={onLoginButtonClick}>
+            {isLoggedIn && <UserName username={"A P"} />}
+            {!isLoggedIn && <FontAwesomeIcon icon={faUser} />}
+          </span>
+          </div>
+         
+        </div>
       </div>
       <div
         className={classNames(styles.outletContainer, {
@@ -87,3 +121,5 @@ const Header = () => {
 export default Header;
 
 //при клике на человечка переходим в sign in
+
+//

@@ -14,14 +14,13 @@ export enum PostCardSize{
 }
 
 interface PostCardProps {
-    id: number;
-    image: string;
-    text?: string;
-    date: string;
-    lesson_num: number;
-    title: string;
-    author?: number;
-    size: PostCardSize;
+  image: string;
+  text?: string;
+  date: string;
+  title: string;
+  size: PostCardSize;
+  onMoreClick?: () => void;
+  onImageClick?: () => void;
   };
 
 const PostCard = (props: PostCardProps) => {
@@ -50,7 +49,7 @@ const PostCard = (props: PostCardProps) => {
 </div>
 <div className={classNames(style.icons)}>
     <span className={classNames(style.iconBookmark, style.icon)}><FontAwesomeIcon icon={faBookmark} /></span>
-    <span className={classNames(style.iconHorizontal, style.icon)}><FontAwesomeIcon icon={faEllipsisVertical} rotation={90} /></span>
+   {props.onMoreClick && (<span onClick={props.onMoreClick} className={classNames(style.iconHorizontal, style.icon)}><FontAwesomeIcon icon={faEllipsisVertical} rotation={90} /></span>)}
 </div>
   </div>
         </div>
