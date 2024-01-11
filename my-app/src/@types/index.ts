@@ -7,7 +7,8 @@ export type Post = {
     lesson_num: number;
     title: string;
     author?: number;
-    onMoreClick? : (post:Post) => void
+    onMoreClick? : (post:Post) => void;
+    onStatusClick?: (status: LikeStatus) => void;
 }
 
 export type PostsList = Post[]
@@ -28,4 +29,9 @@ export enum TabsTypes {
   export enum Theme{
     Light = "light",
     Dark = "dark",
+  }
+
+  export enum LikeStatus{
+    Like= "like",
+    Dislike = 'dislike'
   }

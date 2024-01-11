@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, LegacyRef, forwardRef } from "react";
 import classNames from "classnames";
 
 import styles from "./input.module.scss";
@@ -13,10 +13,13 @@ interface InputProps {
   disabled?: boolean;
   errorText?: string;
   isTextarea?: boolean;
-};
+  className?: string;
+}
 
-const Input = (props:InputProps) => {
-  const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+const Input = forwardRef(function Input(props: InputProps, ref) {
+  const onInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     props.onChange(event.target.value);
   };
 
@@ -30,15 +33,32 @@ const Input = (props:InputProps) => {
     }),
   };
 
- const {themeValue} = useThemeContext();
+  const { themeValue } = useThemeContext();
   return (
-
     <div className={styles.inputContainer}>
-      <div className={classNames(styles.title, {[styles.darkTitle] : themeValue === Theme.Dark})}>{props.title}</div>
-      {props.isTextarea ? <textarea {...inputProps} /> : <input {...inputProps} />}
-      {props.errorText && <div className={styles.errorText}>{props.errorText}</div>}
+      <div
+        className={classNames(styles.title, {
+          [styles.darkTitle]: themeValue === Theme.Dark,
+        })}
+      >
+        {props.title}
+      </div>
+      {props.isTextarea ? (
+        <textarea
+          ref={ref as LegacyRef<HTMLTextAreaElement> | null}
+          {...inputProps}
+        />
+      ) : (
+        <input
+          ref={ref as LegacyRef<HTMLInputElement> | null}
+          {...inputProps}
+        />
+      )}
+      {props.errorText && (
+        <div className={styles.errorText}>{props.errorText}</div>
+      )}
     </div>
   );
-};
+});
 
 export default Input;

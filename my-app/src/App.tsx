@@ -15,7 +15,7 @@ function App() {
 const dispatch = useDispatch();
 
 //то, что данные из редакса достает
-const themeValue = useSelector<RootState>(ThemeSelectors.getThemeValue)
+const themeValue = useSelector(ThemeSelectors.getThemeValue)
 
 
   const onChangeTheme = (value: Theme) => {
@@ -24,7 +24,6 @@ const themeValue = useSelector<RootState>(ThemeSelectors.getThemeValue)
 
   return (
     <ThemeProvider themeValue={themeValue} onChangeTheme={onChangeTheme}>
-      {/* <Header /> */}
       <Router />
     </ThemeProvider>
   );

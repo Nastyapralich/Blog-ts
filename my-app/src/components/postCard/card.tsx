@@ -4,13 +4,14 @@ import { faBookmark, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useThemeContext } from "../../context/theme/context";
-import { Theme } from "../../@types";
+import { LikeStatus, Theme } from "../../@types";
+import { useSelector } from "react-redux";
+import { PostSelectors } from "../../redux/reducers/postSlice";
 
-
-export enum PostCardSize{
-    large = 'large',
-    medium = 'medium',
-    small = 'small'
+export enum PostCardSize {
+  large = "large",
+  medium = "medium",
+  small = "small",
 }
 
 interface PostCardProps {
@@ -21,41 +22,92 @@ interface PostCardProps {
   size: PostCardSize;
   onMoreClick?: () => void;
   onImageClick?: () => void;
-  };
+  onStatusClick: (status: LikeStatus) => void;
+  id? : number
+}
 
 const PostCard = (props: PostCardProps) => {
+  const { themeValue } = useThemeContext();
 
-  const {themeValue} = useThemeContext();
+  const cardStyle = style[props.size];
 
-    const cardStyle = style[props.size] 
-    return (
-        <div className={classNames(cardStyle)}>
-  <div className={classNames(style.content)}>
-<div className={classNames(style.textWrap)}>
-<span className={classNames(style.date, {[style.dateDark] : themeValue === Theme.Dark})}>{props.date}</span>
-<div className={classNames(style.titleText, {[style.titleTextDark] : themeValue === Theme.Dark})}>{props.title}</div>
-<div className={classNames(style.mainTextWrap, {[style.mainTextWrapDark] : themeValue === Theme.Dark})}>
-{ props.size === 'large' && <p className={classNames(style.mainText)}>{props.text}</p>}
-</div>
-</div>
-<div className={classNames(style.imgWrap)}>
-<img src={props.image} alt="Post-Image" />
-</div>
-  </div>
-  <div className={classNames(style.iconsWrap)}>
-<div className={classNames(style.icons)}>
-    <span className={classNames(style.likeIcon, style.icon) }><FontAwesomeIcon icon={faThumbsUp} /></span>
-    <span className={classNames(style.dislikeIcon, style.icon)}><FontAwesomeIcon icon={faThumbsUp} rotation={180} /></span>
-</div>
-<div className={classNames(style.icons)}>
-    <span className={classNames(style.iconBookmark, style.icon)}><FontAwesomeIcon icon={faBookmark} /></span>
-   {props.onMoreClick && (<span onClick={props.onMoreClick} className={classNames(style.iconHorizontal, style.icon)}><FontAwesomeIcon icon={faEllipsisVertical} rotation={90} /></span>)}
-</div>
-  </div>
+  const likedPosts = useSelector(PostSelectors.getLikedPosts)
+  const dislikedPosts = useSelector(PostSelectors.getDislikedPosts)
+  const likeIndex = likedPosts.findIndex((item) => item.id === props.id)
+  const dislikeIndex = dislikedPosts.findIndex((item)=> item.id === props.id)
+
+  return (
+    <div className={classNames(cardStyle)}>
+      <div className={classNames(style.content)}>
+        <div className={classNames(style.textWrap)}>
+          <span
+            className={classNames(style.date, {
+              [style.dateDark]: themeValue === Theme.Dark,
+            })}
+          >
+            {props.date}
+          </span>
+          <div
+            className={classNames(style.titleText, {
+              [style.titleTextDark]: themeValue === Theme.Dark,
+            })}
+          >
+            {props.title}
+          </div>
+          <div
+            className={classNames(style.mainTextWrap, {
+              [style.mainTextWrapDark]: themeValue === Theme.Dark,
+            })}
+          >
+            {props.size === "large" && (
+              <p className={classNames(style.mainText)}>{props.text}</p>
+            )}
+          </div>
         </div>
-    )
-    }
+        <div className={classNames(style.imgWrap)}>
+          <img
+            onClick={props.onImageClick}
+            src={props.image}
+            alt="Post-Image"
+          />
+        </div>
+      </div>
+      <div className={classNames(style.iconsWrap)}>
+        <div className={classNames(style.icons)}>
+          <div onClick={() => props.onStatusClick(LikeStatus.Like)}>
+            <span className={classNames(style.likeIcon, style.icon)}>
+            <FontAwesomeIcon icon={faThumbsUp}/> 
+            <span>
+              {likeIndex > -1 && 1}
+              </span>
+          </span>
+            </div>
+            <div onClick={() => props.onStatusClick(LikeStatus.Dislike)}>
+              <span className={classNames(style.dislikeIcon, style.icon)}>
+            <FontAwesomeIcon icon={faThumbsUp} rotation={180} /> 
+            <span>
+              {dislikeIndex > -1 && 1}
+              </span>
+          </span>
+            </div>
+          
+        </div>
+        <div className={classNames(style.icons)}>
+          <span className={classNames(style.iconBookmark, style.icon)}>
+            <FontAwesomeIcon icon={faBookmark} />
+          </span>
+          {props.onMoreClick && (
+            <span
+              onClick={props.onMoreClick}
+              className={classNames(style.iconHorizontal, style.icon)}
+            >
+              <FontAwesomeIcon icon={faEllipsisVertical} rotation={90} />
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default PostCard
-
-
+export default PostCard;

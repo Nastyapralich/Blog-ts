@@ -57,20 +57,23 @@ const Header = () => {
         <Burger onClick={handleMenuOpened} isOpened={isOpened} />
         <div className={styles.navIcons}>
           <span >
-            {isSearch ? (
-              <div>
-                {" "}
-                <Input
-                  title={""}
-                  placeholder={"Ведите текст"}
+          {isSearch ? (
+          <div className={styles.searchContainer}>
+            <Input
+                  className={styles.searchInput}
+                  placeholder={"Search..."}
                   onChange={setInputValue}
-                  value={inputValue}
-                />
-                <span onClick={handleSearchOpen}>Х</span>
-              </div>
-            ) : (
-              <div></div>
-            )}
+                  value={inputValue} title={""}            />
+            <Button
+              type={ButtonType.Primary}
+              title={"х"}
+              onClick={handleSearchOpen}
+              className={styles.closedSearch}
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
           </span>
           <div className={styles.navIcons}>
             <span onClick={handleSearchOpen}><FontAwesomeIcon icon={faMagnifyingGlass}/></span>

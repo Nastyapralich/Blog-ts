@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Post, Theme } from "../../@types";
 import { RootState } from "../store";
-import { JsxElement } from "typescript";
 
 type InitialState = {
   isSelectedImageOpen: boolean;

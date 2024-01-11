@@ -6,6 +6,7 @@ import { PostsList, TabsTypes } from "../../@types";
 import TabsList from "../../components/tabsList/tabsList";
 import { useThemeContext } from "../../context/theme/context";
 import SelectedPostModal from "./selectedPostModal/selectedPostModal";
+import SelectedImageModal from "./selectedImageModal/selectedImageModal";
 
 const MOCKARRAY = [
   {
@@ -189,6 +190,7 @@ const AllPosts = () => {
         <TabsList tabsList={tabsList} activeTab={activeTab} onTabClick={onTabClick}/>
         <CardList cardsList={cardsList} />
         <SelectedPostModal />
+        <SelectedImageModal />
       </div>
     );
   };

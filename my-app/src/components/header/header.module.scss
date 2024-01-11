@@ -81,3 +81,26 @@
         cursor: pointer;
     }
 }
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    height: 84px;
+  }
+  
+  .searchInput {
+    border: none;
+    color: $white;
+    color: red;
+    border-radius: none;
+    width: 400px;
+    height: 30px;
+  }
+  
+  .closedSearch {
+    height: 84px;
+    border-radius: 0;
+  }
+  

@@ -13,6 +13,7 @@ interface ButtonProps{
     title: string | ReactElement;
     onClick: () => void;
     disabled?: boolean;
+    className? : string
 }
 
 const Button = (props:ButtonProps) =>{
