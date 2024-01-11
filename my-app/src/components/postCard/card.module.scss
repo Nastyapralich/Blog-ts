@@ -180,6 +180,8 @@
 .icon {
   &:hover {
     cursor: pointer;
+    color: $primary;
+    
   }
 }
 
@@ -322,4 +324,10 @@ margin-right: 15px;
   }
 }
 
+.iconBookmark{
+  color: blue;
+}
 
+.bookMark{
+  color: black;
+}

@@ -1,20 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { LikeStatus, Post, PostsList, Theme } from "../../@types";
+import { LikeStatus, Post, PostsList, SaveStatus, Theme } from "../../@types";
 import { RootState } from "../store";
-import { stat } from "fs";
+
 
 type InitialState = {
   isSelectedModalOpen: boolean;
   selectedPost: Post | null;
   likedPosts: PostsList;
-  dislikedPosts: PostsList
+  dislikedPosts: PostsList;
+  savedPosts: PostsList;
 };
 
 const initialState: InitialState = {
   isSelectedModalOpen: false,
   selectedPost: null,
   likedPosts: [],
-  dislikedPosts: []
+  dislikedPosts: [],
+  savedPosts: [],
 };
 
 const PostSlice = createSlice({
@@ -44,11 +46,22 @@ const PostSlice = createSlice({
     if(secondaryIndex > -1){
       state[secondaryKey].splice(secondaryIndex, 1)
     }
+  },
+
+  setSavedPosts:(state, action: PayloadAction<{card: Post}>) => {
+   const {card} = action.payload;
+   const savedIndex = state.savedPosts.findIndex((item) => item.id === card.id); //проверяем есть ли сохраненный пост в массиве
+   if (savedIndex === -1){ //если карточки нет, то пушим в массив карточку
+  state.savedPosts.push(card)
+  } else{
+   state.savedPosts.splice(savedIndex, 1) //либо поставили лайк, либо убрали
   }
   },
+  },
+
 });
 
-export const { setSelectedPostModalOpened, setSelectedPost, setLikeStatus } =
+export const { setSelectedPostModalOpened, setSelectedPost, setLikeStatus, setSavedPosts } =
   PostSlice.actions;
 
 export const PostSelectors = {
@@ -56,7 +69,8 @@ export const PostSelectors = {
     state.postReducer.isSelectedModalOpen,
   getSelectedPost: (state: RootState) => state.postReducer.selectedPost,
   getLikedPosts: (state: RootState) => state.postReducer.likedPosts,
-  getDislikedPosts: (state: RootState) => state.postReducer.dislikedPosts
+  getDislikedPosts: (state: RootState) => state.postReducer.dislikedPosts,
+  getFavouritePosts: (state: RootState) => state.postReducer.savedPosts,
 };
 
 export default PostSlice.reducer;

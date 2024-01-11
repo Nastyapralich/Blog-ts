@@ -23,6 +23,7 @@ interface PostCardProps {
   onMoreClick?: () => void;
   onImageClick?: () => void;
   onStatusClick: (status: LikeStatus) => void;
+  onSaveClick?: () => void;
   id? : number
 }
 
@@ -35,6 +36,9 @@ const PostCard = (props: PostCardProps) => {
   const dislikedPosts = useSelector(PostSelectors.getDislikedPosts)
   const likeIndex = likedPosts.findIndex((item) => item.id === props.id)
   const dislikeIndex = dislikedPosts.findIndex((item)=> item.id === props.id)
+  const savedPosts = useSelector(PostSelectors.getLikedPosts);
+  const savedIndex = savedPosts.findIndex((item) => item.id === props.id)
+
 
   return (
     <div className={classNames(cardStyle)}>
@@ -93,9 +97,11 @@ const PostCard = (props: PostCardProps) => {
           
         </div>
         <div className={classNames(style.icons)}>
-          <span className={classNames(style.iconBookmark, style.icon)}>
+         <div onClick={props.onSaveClick}>{
+          <span className={classNames( likeIndex > 1 ? style.iconBookmark : style.bookMark, style.icon)}>
             <FontAwesomeIcon icon={faBookmark} />
-          </span>
+          </span>}
+          </div> 
           {props.onMoreClick && (
             <span
               onClick={props.onMoreClick}

@@ -35,3 +35,7 @@ export enum TabsTypes {
     Like= "like",
     Dislike = 'dislike'
   }
+
+  export enum SaveStatus{
+    SavePost = 'savedPost'
+  }

@@ -6,6 +6,7 @@ import { useThemeContext } from "../../context/theme/context";
 import { useDispatch } from "react-redux";
 import {
   setLikeStatus,
+  setSavedPosts,
   setSelectedPost,
   setSelectedPostModalOpened,
 } from "../../redux/reducers/postSlice";
@@ -45,6 +46,10 @@ const CardList = (props: CardListProps) => {
     dispatch(setLikeStatus({ card, status }));
   };
 
+  const onSaveClick = (card: Post) => () =>{
+    dispatch(setSavedPosts({card}))
+  }
+
   const { themeValue } = useThemeContext();
 
   return props.cardsList.length ? (
@@ -61,6 +66,7 @@ const CardList = (props: CardListProps) => {
             onMoreClick={onMoreClick(props.cardsList[0])}
             onImageClick={onImageClick(props.cardsList[0].image)}
             onStatusClick={onStatusClick(props.cardsList[0])}
+            onSaveClick={onSaveClick(props.cardsList[0])}
           />
           <div className={style.mediumContainer}>
             {props.cardsList.map((element, index) => {
@@ -73,6 +79,7 @@ const CardList = (props: CardListProps) => {
                     onMoreClick={onMoreClick(element)}
                     onImageClick={onImageClick(element.image)}
                     onStatusClick={onStatusClick(element)}
+                    onSaveClick={onSaveClick(element)}
                   />
                 );
               }
@@ -92,6 +99,7 @@ const CardList = (props: CardListProps) => {
                 onMoreClick={onMoreClick(element)}
                 onImageClick={onImageClick(element.image)}
                 onStatusClick={onStatusClick(element)}
+                  onSaveClick={onSaveClick(element)}
               />
             );
           }
