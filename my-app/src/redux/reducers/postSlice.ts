@@ -9,6 +9,8 @@ type InitialState = {
   likedPosts: PostsList;
   dislikedPosts: PostsList;
   savedPosts: PostsList;
+  postsList: PostsList;
+  singlePost: Post | null;
 };
 
 const initialState: InitialState = {
@@ -17,6 +19,8 @@ const initialState: InitialState = {
   likedPosts: [],
   dislikedPosts: [],
   savedPosts: [],
+  postsList: [],
+  singlePost: null
 };
 
 const PostSlice = createSlice({
@@ -57,11 +61,19 @@ const PostSlice = createSlice({
    state.savedPosts.splice(savedIndex, 1) //либо поставили лайк, либо убрали
   }
   },
+  getAllPosts: (_, __: PayloadAction<undefined>) => {}, //сначала получить get пустой
+  setAllPosts:(state, action:PayloadAction<PostsList>) =>{ //делаем set action, то что хотим получить и зписать в сагу
+    state.postsList = action.payload
+  },
+  getSinglePost: (_, __:PayloadAction<string>) => {},
+  setSinglePost: (state, action:PayloadAction<Post | null>) =>{
+    state.singlePost = action.payload
+  }
   },
 
 });
 
-export const { setSelectedPostModalOpened, setSelectedPost, setLikeStatus, setSavedPosts } =
+export const { setSelectedPostModalOpened, setSelectedPost, setLikeStatus, setSavedPosts,  getAllPosts, setAllPosts, getSinglePost, setSinglePost} =
   PostSlice.actions;
 
 export const PostSelectors = {
@@ -71,6 +83,8 @@ export const PostSelectors = {
   getLikedPosts: (state: RootState) => state.postReducer.likedPosts,
   getDislikedPosts: (state: RootState) => state.postReducer.dislikedPosts,
   getFavouritePosts: (state: RootState) => state.postReducer.savedPosts,
-};
+  getAllPosts: (state: RootState) => state.postReducer.postsList,
+  getSinglePost: (state: RootState) => state.postReducer.singlePost
+}
 
 export default PostSlice.reducer;

@@ -19,15 +19,12 @@ import {
 
 
 
-interface CardListProps {
-  cardsList: PostsList;
+type CardListProps = {
+  cardsList: Post[] ;
   onMoreClick?: (post: Post) => void;
   onImageClick?: (image: string) => void;
   // onStatusClick?: (status: LikeStatus) => void;
 }
-
-
-
 
 const CardList = (props: CardListProps) => {
   const dispatch = useDispatch();

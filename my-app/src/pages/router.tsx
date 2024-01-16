@@ -5,12 +5,16 @@ import SignUp from "./sigUp/signUp";
 import RegistrationConfirmation from "./registrationConfirmation/registrationConfirmation";
 import SignIn from "./signIn/signIn";
 import Header from "../components/header/header";
+import SelectedPost from "./selectedPost/selectedPost";
+// import FavouritePosts from "./favouritePosts/favouritePosts";
 
 export enum RoutesList {
   AllPosts = "/",
   SignUp = "/sign-up",
   SignIn = "/sign-in",
-  RegistrationConfirmation = "/sign-up/confirm",
+  RegistrationConfirmation = "/activate/:uid/:token",
+  FavouritePosts = "/favourite-posts",
+  SelectedPost = "/post/:id",
   Default = "*",
 }
 
@@ -19,17 +23,21 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path={RoutesList.AllPosts} element={<Header />}>
-        <Route path={RoutesList.AllPosts} element={<AllPosts />} />
-        <Route path={RoutesList.SignUp} element={<SignUp />} />
-        <Route path={RoutesList.SignIn} element={<SignIn />} />
-        <Route
-          path={RoutesList.RegistrationConfirmation}
-          element={<RegistrationConfirmation />}
-        />
-        <Route
-          path={RoutesList.Default}
-          element={<Navigate to={RoutesList.AllPosts} />}
-        />
+          <Route path={RoutesList.AllPosts} element={<AllPosts />} />
+          <Route path={RoutesList.SignUp} element={<SignUp />} />
+          <Route path={RoutesList.SignIn} element={<SignIn />} />
+          <Route
+            path={RoutesList.SelectedPost}
+            element={<SelectedPost/>}
+          />
+          <Route
+            path={RoutesList.RegistrationConfirmation}
+            element={<RegistrationConfirmation />}
+          />
+          <Route
+            path={RoutesList.Default}
+            element={<Navigate to={RoutesList.AllPosts} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

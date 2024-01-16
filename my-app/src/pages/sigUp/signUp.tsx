@@ -2,6 +2,8 @@ import { useState } from 'react';
 import FormPageContainer from '../../components/formPagesContainer/formPagesContainer'
 import Input from '../../components/input/input';
 import style from './signUp.module.scss'
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../../redux/reducers/authSlice';
 
 const SignUp = () =>{
 
@@ -10,12 +12,25 @@ const SignUp = () =>{
  const [password, setPassword] = useState("");
  const [confirm, setConfirm] = useState("");
 
+ 
+ const dispatch = useDispatch();
+
+ const onSubmit = () => {
+    const data = {
+        username: name,
+        email: email,
+        password: password
+    }
+    dispatch(signUpUser({ data, callback: () => {} }));
+ }
+
+
     return(
 
         <FormPageContainer 
         title={'Sign Up'} 
         btnTitle={'Sign Up'}
-        onSubmit={() => {}}
+        onSubmit={onSubmit}
         additionalText={
             <div>{'Already have an account?'} <span className={style.additional}>Sign In</span></div>} >
             <div className={style.container}>

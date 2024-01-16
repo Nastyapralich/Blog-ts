@@ -42,7 +42,7 @@ const Header = () => {
   const navLinks = useMemo(
     () => [
       { path: RoutesList.AllPosts, title: "All posts" },
-      ...(isLoggedIn ? [{ path: RoutesList.SignIn, title: "Add post" }] : []),
+      ...(isLoggedIn ? [{ path: RoutesList.SignIn, title: "Add post" }, {path: RoutesList.FavouritePosts, title: "Favourite Posts"}] : []),
     ],
     []
   );

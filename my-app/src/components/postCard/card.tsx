@@ -7,6 +7,9 @@ import { useThemeContext } from "../../context/theme/context";
 import { LikeStatus, Theme } from "../../@types";
 import { useSelector } from "react-redux";
 import { PostSelectors } from "../../redux/reducers/postSlice";
+import { useNavigate } from "react-router-dom";
+import SelectedPost from "../../pages/selectedPost/selectedPost";
+import { RoutesList } from "../../pages/router";
 
 export enum PostCardSize {
   large = "large",
@@ -14,7 +17,7 @@ export enum PostCardSize {
   small = "small",
 }
 
-interface PostCardProps {
+type PostCardProps = {
   image: string;
   text?: string;
   date: string;
@@ -29,6 +32,13 @@ interface PostCardProps {
 
 const PostCard = (props: PostCardProps) => {
   const { themeValue } = useThemeContext();
+
+  const navigate = useNavigate()
+
+  const onTitleClick = () =>{
+navigate(`post/${props.id}`)
+  }
+  
 
   const cardStyle = style[props.size];
 
@@ -54,7 +64,7 @@ const PostCard = (props: PostCardProps) => {
           <div
             className={classNames(style.titleText, {
               [style.titleTextDark]: themeValue === Theme.Dark,
-            })}
+            })} onClick={onTitleClick}
           >
             {props.title}
           </div>
