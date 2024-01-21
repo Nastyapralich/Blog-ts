@@ -8,16 +8,18 @@ import { useThemeContext } from "../../context/theme/context";
 import SelectedPostModal from "./selectedPostModal/selectedPostModal";
 import SelectedImageModal from "./selectedImageModal/selectedImageModal";
 import { useDispatch, useSelector } from "react-redux";
-import { PostSelectors, getAllPosts } from "../../redux/reducers/postSlice";
+import { PostSelectors, getAllPosts} from "../../redux/reducers/postSlice";
+import { AuthSelectors } from "../../redux/reducers/authSlice";
 
 
 const AllPosts = () => {
 
     const dispatch = useDispatch()
     const cardsList = useSelector(PostSelectors.getAllPosts)
+    const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
 
     const [activeTab, setActiveTab] = useState(TabsTypes.All);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    // const [isLoggedIn, setLoggedIn] = useState(false);
     
     
     const tabsList = useMemo(
@@ -38,10 +40,11 @@ const AllPosts = () => {
     }, []);
   
     const onTabClick = (tab: TabsTypes) => () => {
+
       setActiveTab(tab);
-      if (tab === TabsTypes.Popular) {
-        setLoggedIn(true);
-      }
+      // if (tab === TabsTypes.Popular) {
+      //   setLoggedIn(true);
+      // }
     };
   
     const {themeValue} = useThemeContext();

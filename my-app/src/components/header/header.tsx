@@ -14,9 +14,14 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Input from "../input/input";
+import { useSelector } from "react-redux";
+import authSaga from "../../redux/sagas/authSaga";
+import { AuthSelectors } from "../../redux/reducers/authSlice";
 
 const Header = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+  const userInfo = useSelector(AuthSelectors.setUserInfo);
+
 
   const [isOpened, setOpened] = useState(false);
   const [isSearch, setSearch] = useState(false);
@@ -33,19 +38,20 @@ const Header = () => {
   const navigate = useNavigate();
 
   const onLoginButtonClick = () => {
-    console.log(1);
-    navigate(RoutesList.SignIn);
+    navigate(RoutesList.SignUp);
+    console.log(65252154);
   };
 
   const { themeValue } = useThemeContext();
 
   const navLinks = useMemo(
     () => [
-      { path: RoutesList.AllPosts, title: "All posts" },
-      ...(isLoggedIn ? [{ path: RoutesList.SignIn, title: "Add post" }, {path: RoutesList.FavouritePosts, title: "Favourite Posts"}] : []),
+      { path: RoutesList.AllPosts, title: "Home" },
+      ...(isLoggedIn ? [{ path: RoutesList.SignUp, title: "Add Post" }] : []),
     ],
-    []
+    [isLoggedIn]
   );
+
 
   return (
     <div
@@ -56,33 +62,37 @@ const Header = () => {
       <div className={styles.header}>
         <Burger onClick={handleMenuOpened} isOpened={isOpened} />
         <div className={styles.navIcons}>
-          <span >
-          {isSearch ? (
-          <div className={styles.searchContainer}>
-            <Input
+          <span>
+            {isSearch ? (
+              <div className={styles.searchContainer}>
+                <Input
                   className={styles.searchInput}
                   placeholder={"Search..."}
                   onChange={setInputValue}
-                  value={inputValue} title={""}            />
-            <Button
-              type={ButtonType.Primary}
-              title={"х"}
-              onClick={handleSearchOpen}
-              className={styles.closedSearch}
-            />
-          </div>
-        ) : (
-          <div></div>
-        )}
+                  value={inputValue}
+                  title={""}
+                />
+                <Button
+                  type={ButtonType.Primary}
+                  title={"х"}
+                  onClick={handleSearchOpen}
+                  className={styles.closedSearch}
+                />
+              </div>
+            ) : (
+              <div></div>
+            )}
           </span>
           <div className={styles.navIcons}>
-            <span onClick={handleSearchOpen}><FontAwesomeIcon icon={faMagnifyingGlass}/></span>
-             <span onClick={onLoginButtonClick}>
-            {isLoggedIn && <UserName username={"A P"} />}
-            {!isLoggedIn && <FontAwesomeIcon icon={faUser} />}
-          </span>
+            <span onClick={handleSearchOpen}>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </span>
+            <span onClick={onLoginButtonClick}>
+              {isLoggedIn  && userInfo ? (
+              <div><UserName/> </div>) 
+              : (<FontAwesomeIcon icon={faUser} />)}
+            </span>
           </div>
-         
         </div>
       </div>
       <div
@@ -96,7 +106,7 @@ const Header = () => {
       {isOpened && (
         <div className={styles.menuContainer}>
           <div>
-            {isLoggedIn && <UserName username={"Anastasia Pralich"} />}
+          {isLoggedIn  && userInfo ? (<div><UserName /> </div>) : (<FontAwesomeIcon icon={faUser} />)}
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}

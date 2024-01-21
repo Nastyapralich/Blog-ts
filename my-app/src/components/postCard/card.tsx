@@ -27,28 +27,26 @@ type PostCardProps = {
   onImageClick?: () => void;
   onStatusClick: (status: LikeStatus) => void;
   onSaveClick?: () => void;
-  id? : number
-}
+  id?: number;
+};
 
 const PostCard = (props: PostCardProps) => {
   const { themeValue } = useThemeContext();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onTitleClick = () =>{
-navigate(`post/${props.id}`)
-  }
-  
+  const onTitleClick = () => {
+    navigate(`post/${props.id}`);
+  };
 
   const cardStyle = style[props.size];
 
-  const likedPosts = useSelector(PostSelectors.getLikedPosts)
-  const dislikedPosts = useSelector(PostSelectors.getDislikedPosts)
-  const likeIndex = likedPosts.findIndex((item) => item.id === props.id)
-  const dislikeIndex = dislikedPosts.findIndex((item)=> item.id === props.id)
+  const likedPosts = useSelector(PostSelectors.getLikedPosts);
+  const dislikedPosts = useSelector(PostSelectors.getDislikedPosts);
+  const likeIndex = likedPosts.findIndex((item) => item.id === props.id);
+  const dislikeIndex = dislikedPosts.findIndex((item) => item.id === props.id);
   const savedPosts = useSelector(PostSelectors.getLikedPosts);
-  const savedIndex = savedPosts.findIndex((item) => item.id === props.id)
-
+  const savedIndex = savedPosts.findIndex((item) => item.id === props.id);
 
   return (
     <div className={classNames(cardStyle)}>
@@ -64,7 +62,8 @@ navigate(`post/${props.id}`)
           <div
             className={classNames(style.titleText, {
               [style.titleTextDark]: themeValue === Theme.Dark,
-            })} onClick={onTitleClick}
+            })}
+            onClick={onTitleClick}
           >
             {props.title}
           </div>
@@ -90,28 +89,30 @@ navigate(`post/${props.id}`)
         <div className={classNames(style.icons)}>
           <div onClick={() => props.onStatusClick(LikeStatus.Like)}>
             <span className={classNames(style.likeIcon, style.icon)}>
-            <FontAwesomeIcon icon={faThumbsUp}/> 
-            <span>
-              {likeIndex > -1 && 1}
-              </span>
-          </span>
-            </div>
-            <div onClick={() => props.onStatusClick(LikeStatus.Dislike)}>
-              <span className={classNames(style.dislikeIcon, style.icon)}>
-            <FontAwesomeIcon icon={faThumbsUp} rotation={180} /> 
-            <span>
-              {dislikeIndex > -1 && 1}
-              </span>
-          </span>
-            </div>
-          
+              <FontAwesomeIcon icon={faThumbsUp} />
+              <span>{likeIndex > -1 && 1}</span>
+            </span>
+          </div>
+          <div onClick={() => props.onStatusClick(LikeStatus.Dislike)}>
+            <span className={classNames(style.dislikeIcon, style.icon)}>
+              <FontAwesomeIcon icon={faThumbsUp} rotation={180} />
+              <span>{dislikeIndex > -1 && 1}</span>
+            </span>
+          </div>
         </div>
         <div className={classNames(style.icons)}>
-         <div onClick={props.onSaveClick}>{
-          <span className={classNames( likeIndex > 1 ? style.iconBookmark : style.bookMark, style.icon)}>
-            <FontAwesomeIcon icon={faBookmark} />
-          </span>}
-          </div> 
+          <div onClick={props.onSaveClick}>
+            {
+              <span
+                className={classNames(
+                  likeIndex > 1 ? style.iconBookmark : style.bookMark,
+                  style.icon
+                )}
+              >
+                <FontAwesomeIcon icon={faBookmark} />
+              </span>
+            }
+          </div>
           {props.onMoreClick && (
             <span
               onClick={props.onMoreClick}

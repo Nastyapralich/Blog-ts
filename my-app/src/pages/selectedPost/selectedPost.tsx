@@ -31,7 +31,7 @@ const SelectedPost = () => {
   return  singlePost ?(
     <div className={style.selectedPostContainer}>
       <div className={style.breadcrumbs}>
-        <span className={style.link} onClick={onHomeClick}>Home&nbsp;</span>
+        <span className={style.link} onClick={onHomeClick}>Home;</span>
         <span>| Post {id}</span>
       </div>
       <Title content={singlePost.title} />

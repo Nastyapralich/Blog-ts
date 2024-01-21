@@ -16,9 +16,6 @@ import {
 } from "../../redux/reducers/imageSlice";
 
 
-
-
-
 type CardListProps = {
   cardsList: Post[] ;
   onMoreClick?: (post: Post) => void;

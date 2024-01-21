@@ -1,25 +1,30 @@
+import { useDispatch, useSelector } from 'react-redux'
 import style from './usernaem.module.scss'
 import classNames from 'classnames'
+import { AuthSelectors } from '../../redux/reducers/authSlice'
 
 
-interface UserNameProps{
-username: string;
-}
+// interface UserNameProps{
+// username: string;
+// }
 
-const UserName = (props:UserNameProps) =>{
+const UserName = () =>{
+
+    const username = useSelector(AuthSelectors.setUserInfo);
 
     return(
-        <div>
-<div className={classNames(style.userNameWrap)}>
+        username ?  <div>
+    
+{<div className={classNames(style.userNameWrap)}>
 <div className={classNames(style.initials)}>
-{props.username[0]}{props.username.split(' ')[1][0]}
+{username?.username[0]}
 </div>
 <div className={classNames(style.fullName)}>
-{props.username}
+{username?.username}
 </div>
-</div>
-        </div>
-    )
+</div>} 
+        </div> : null
+    ) 
 }
 
 export default UserName
