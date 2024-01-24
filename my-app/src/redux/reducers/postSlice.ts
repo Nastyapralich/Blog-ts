@@ -20,7 +20,7 @@ const initialState: InitialState = {
   dislikedPosts: [],
   savedPosts: [],
   postsList: [],
-  singlePost: null
+  singlePost: null,
 };
 
 const PostSlice = createSlice({
@@ -84,7 +84,7 @@ export const PostSelectors = {
   getDislikedPosts: (state: RootState) => state.postReducer.dislikedPosts,
   getFavouritePosts: (state: RootState) => state.postReducer.savedPosts,
   getAllPosts: (state: RootState) => state.postReducer.postsList,
-  getSinglePost: (state: RootState) => state.postReducer.singlePost
+  getSinglePost: (state: RootState) => state.postReducer.singlePost,
 }
 
 export default PostSlice.reducer;

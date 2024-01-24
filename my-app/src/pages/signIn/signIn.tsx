@@ -14,13 +14,6 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
 
     const {themeValue} = useThemeContext();
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate()
-
-    const onSubmit = () =>{
-      dispatch(signInUser({data:{ email, password}, callback: () => {navigate(RoutesList.AllPosts)}}))
-    }
     
   return (
     <FormPageContainer

@@ -16,10 +16,10 @@ const AllPosts = () => {
 
     const dispatch = useDispatch()
     const cardsList = useSelector(PostSelectors.getAllPosts)
+    const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
 
     const [activeTab, setActiveTab] = useState(TabsTypes.All);
-    // const [isLoggedIn, setLoggedIn] = useState(false);
-    const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     
      useEffect(() => {
       dispatch(getAllPosts());
@@ -40,10 +40,12 @@ const AllPosts = () => {
   
    
   
-    const onTabsClick = (tab: TabsTypes) => () => {
+    const onTabClick = (tab: TabsTypes) => () => {
       setActiveTab(tab);
-     }
-
+      if (tab === TabsTypes.Popular) {
+        setLoggedIn(true);
+      }
+    };
   
     // const {themeValue} = useThemeContext();
     

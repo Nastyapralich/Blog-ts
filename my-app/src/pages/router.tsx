@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AllPosts from "./allPosts/allPosts";
 import SignUp from "./sigUp/signUp";
@@ -21,30 +21,20 @@ export enum RoutesList {
 }
 
 const Router = () => {
-  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
-
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getUserInfo());
-    }
-  }, [isLoggedIn]);
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path={RoutesList.AllPosts} element={<Header />}>
           <Route path={RoutesList.AllPosts} element={<AllPosts />} />
-          <Route path={RoutesList.SignUp} element={!isLoggedIn ? <SignUp /> : <Navigate to={RoutesList.AllPosts} />} />
-          <Route path={RoutesList.SignIn} element={ <SignIn /> } />
+          <Route path={RoutesList.SignUp} element={<SignUp />} />
+          <Route path={RoutesList.SignIn} element={<SignIn />} />
           <Route
             path={RoutesList.SelectedPost}
             element={<SelectedPost/>}
           />
           <Route
             path={RoutesList.RegistrationConfirmation}
-            element={ !isLoggedIn ? <RegistrationConfirmation /> : <Navigate to={RoutesList.AllPosts} />}
+            element={<RegistrationConfirmation />}
           />
           <Route
             path={RoutesList.Default}

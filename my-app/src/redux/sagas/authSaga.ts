@@ -1,13 +1,10 @@
-import { all, takeLatest, call, take, put } from "redux-saga/effects";
-import { activateUser, getUserInfo, setAccessToken, setUserInfo, signInUser, signUpUser } from "../reducers/authSlice";
+import { all, takeLatest, call, take } from "redux-saga/effects";
+import { activateUser, signUpUser } from "../reducers/authSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import {
   SignUpUserPayload,
   SignUpResponseData,
-  SignInUserPayload,
-  SignInResponse,
-  UserInfoResponse,
-  ActivateUserPayload
+  ActivateUserPayload,
 } from "../@types";
 import { ApiResponse } from "apisauce";
 import API from "../../utils/api";
@@ -35,21 +32,7 @@ function* activateUserWorker(action: PayloadAction<ActivateUserPayload>) {
   if (response.ok) {
     callback();
   } else {
-    console.error("Activate User error", response.problem);
-  }
-}
-
-function* signInUserWorker(action: PayloadAction<SignInUserPayload>) {
-  //сначала создаем воркера
-  const { data, callback } = action.payload;
-  const response: ApiResponse<SignInResponse> = yield call(API.createToken, data);
-  if (response.ok && response.data) {
-    yield put(setAccessToken(response.data.access));
-    localStorage.setItem(ACCESS_TOKEN_KEY, response.data.access)
-    localStorage.setItem(REFRESH_TOKEN_KEY, response.data.refresh)
-    callback();
-  } else {
-    console.error("Sign In User Error", response.problem);
+    console.error("Activate user error", response.problem);
   }
 }
 
@@ -76,7 +59,5 @@ export default function* authSaga() {
   yield all([
     takeLatest(signUpUser, signUpUserWorker),
     takeLatest(activateUser, activateUserWorker),
-    takeLatest(signInUser, signInUserWorker),
-    takeLatest(getUserInfo, userInfoWorker)
   ]);
 }

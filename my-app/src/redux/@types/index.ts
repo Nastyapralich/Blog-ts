@@ -26,27 +26,9 @@ export type PostData = {
   results: PostsList;
 };
 
-export type SignInUserData = {
-  email: string;
-  password: string;
-};
+export type ActivateUserData ={
+  uid: string,
+  token: string
+}
 
-export type SignInUserPayload = PayloadDataAndCallback<SignInUserData>;
-
-export type SignInResponse = {
-  access: string;
-  refresh: string;
-};
-
-export type UserInfoResponse = {
-  username: string;
-  id: number;
-  email: string;
-};
-
-export type ActivateUserData = {
-  uid: string;
-  token: string;
-};
-
-export type ActivateUserPayload = PayloadDataAndCallback<ActivateUserData>;
+export type ActivateUserPayload = PayloadDataAndCallback<ActivateUserData>
