@@ -23,7 +23,7 @@ const AuthSlice = createSlice({
     setAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
-    getUserInfo: (stae, action: PayloadAction<undefined>) => {},
+    getUserInf: (state, action: PayloadAction<undefined>) => {},
     setUserInfo: (state, action: PayloadAction<UserInfoResponse | null>) => {
       state.userInfo = action.payload;
     },
@@ -37,7 +37,7 @@ export const {
   activateUser,
   signInUser,
   setAccessToken,
-  getUserInfo,
+  getUserInf,
   setUserInfo,
   logOutUser 
 } =

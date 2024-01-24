@@ -13,9 +13,9 @@ import {
 import { ApiResponse } from "apisauce";
 import API from "../../utils/api";
 import { Post } from "../../@types";
-import api from "../../utils/api";
 import { ACCESS_TOKEN_KEY } from "../../utils/constants";
-import { getUserInfo, setUserInfo } from "../reducers/authSlice";
+import { getUserInf, setUserInfo } from "../reducers/authSlice";
+
 
 function* postWorker() {
   const response: ApiResponse<PostData> = yield call(API.getPosts);
@@ -53,10 +53,11 @@ function* getMyPostsWorker(){
   }
 }
 
+
 export default function* postsSagaWatcher() {
   yield all([
     takeLatest(getAllPosts, postWorker),
     takeLatest(getSinglePost, getSinglePostWorker),
     takeLatest(getMyPosts, getMyPostsWorker)
-  ]);
+  ])
 }

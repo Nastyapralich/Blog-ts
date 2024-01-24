@@ -1,7 +1,7 @@
 import { all, takeLatest, call, take, put } from "redux-saga/effects";
 import {
   activateUser,
-  getUserInfo,
+  getUserInf,
   logOutUser,
   setAccessToken,
   setUserInfo,
@@ -63,6 +63,7 @@ function* signInUserWorker(action: PayloadAction<SignInUserPayload>) {
   }
 }
 
+
 function* userInfoWorker() {
   console.log(1111);
 
@@ -84,6 +85,7 @@ function* userInfoWorker() {
   }
 }
 
+
 function* logOutWorker() {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(REFRESH_TOKEN_KEY);
@@ -96,7 +98,7 @@ export default function* authSaga() {
     takeLatest(signUpUser, signUpUserWorker),
     takeLatest(activateUser, activateUserWorker),
     takeLatest(signInUser, signInUserWorker),
-    takeLatest(getUserInfo, userInfoWorker),
     takeLatest(logOutUser, logOutWorker),
+    takeLatest(getUserInf, userInfoWorker)
   ]);
 }
