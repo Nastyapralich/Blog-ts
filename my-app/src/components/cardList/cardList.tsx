@@ -14,10 +14,11 @@ import {
   setSelectedImageOpened,
   setSelectedImage,
 } from "../../redux/reducers/imageSlice";
+import Loader from "../loader/loader";
 
 
 type CardListProps = {
-  cardsList: Post[] ;
+  cardsList: Post[];
   onMoreClick?: (post: Post) => void;
   onImageClick?: (image: string) => void;
   // onStatusClick?: (status: LikeStatus) => void;
@@ -100,7 +101,7 @@ const CardList = (props: CardListProps) => {
         })}
       </div>
     </div>
-  ) : null;
+  ) : <Loader />;
 };
 
 export default CardList;

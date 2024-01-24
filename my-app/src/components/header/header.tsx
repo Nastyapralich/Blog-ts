@@ -14,13 +14,22 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Input from "../input/input";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthSelectors, logOutUser } from "../../redux/reducers/authSlice";
 
 const Header = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+  console.log(isLoggedIn);
+  
+  const username = useSelector(AuthSelectors.getUserInfo)
+  console.log(username);
+  
 
   const [isOpened, setOpened] = useState(false);
   const [isSearch, setSearch] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
+  const dispatch = useDispatch()
 
   const handleMenuOpened = () => {
     setOpened(!isOpened);
@@ -35,6 +44,10 @@ const Header = () => {
   const onLoginButtonClick = () => {
     navigate(RoutesList.SignUp);
     console.log(65252154);
+  };
+
+  const onLogout = () => {
+    dispatch(logOutUser());
   };
 
   const { themeValue } = useThemeContext();
@@ -80,9 +93,7 @@ const Header = () => {
           </span>
           <div className={styles.navIcons}>
             <span onClick={handleSearchOpen}><FontAwesomeIcon icon={faMagnifyingGlass}/></span>
-             <span onClick={onLoginButtonClick}>
-            {isLoggedIn && <UserName username={"A P"} />}
-            {!isLoggedIn && <FontAwesomeIcon icon={faUser} />}
+             <span onClick={onLoginButtonClick}><UserName />
           </span>
           </div>
         </div>
@@ -98,7 +109,7 @@ const Header = () => {
       {isOpened && (
         <div className={styles.menuContainer}>
           <div>
-            {isLoggedIn && <UserName username={"Anastasia Pralich"} />}
+            {isLoggedIn ? <UserName /> : <FontAwesomeIcon icon={faUser} />}
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -114,7 +125,7 @@ const Header = () => {
             <Button
               type={ButtonType.Secondary}
               title={isLoggedIn ? "Log out" : "Sign In"}
-              onClick={onLoginButtonClick}
+              onClick={isLoggedIn ? onLogout : onLoginButtonClick}
             />
           </div>
         </div>

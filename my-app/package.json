@@ -18,6 +18,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "apisauce": "3.0.0",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",

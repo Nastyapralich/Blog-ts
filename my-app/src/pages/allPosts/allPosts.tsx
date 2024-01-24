@@ -8,7 +8,7 @@ import { useThemeContext } from "../../context/theme/context";
 import SelectedPostModal from "./selectedPostModal/selectedPostModal";
 import SelectedImageModal from "./selectedImageModal/selectedImageModal";
 import { useDispatch, useSelector } from "react-redux";
-import { PostSelectors, getAllPosts } from "../../redux/reducers/postSlice";
+import { PostSelectors, getAllPosts, getMyPosts } from "../../redux/reducers/postSlice";
 import { AuthSelectors } from "../../redux/reducers/authSlice";
 
 
@@ -17,13 +17,31 @@ const AllPosts = () => {
     const dispatch = useDispatch()
     const cardsList = useSelector(PostSelectors.getAllPosts)
     const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
+    const myPosts = useSelector(PostSelectors.getMyPosts);
 
     const [activeTab, setActiveTab] = useState(TabsTypes.All);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+
     
-     useEffect(() => {
-      dispatch(getAllPosts());
-    }, []);
+    //  useEffect(() => {
+    //   dispatch(getAllPosts());
+    // }, []);
+
+    useEffect(()=>{
+      if(activeTab === TabsTypes.MyFavorite){
+        dispatch(getMyPosts())
+      }else{
+        dispatch(getAllPosts());
+      }
+    }, [activeTab])
+
+
+    const tabsContextSwitcher = () => {
+      if (activeTab === TabsTypes.MyFavorite) {
+        return myPosts;
+      } else {
+        return cardsList;
+      }
+    };
 
     const tabList = useMemo(
       () => [
@@ -42,17 +60,17 @@ const AllPosts = () => {
   
     const onTabClick = (tab: TabsTypes) => () => {
       setActiveTab(tab);
-      if (tab === TabsTypes.Popular) {
-        setLoggedIn(true);
-      }
+      console.log(activeTab);
+      
     };
   
+
     // const {themeValue} = useThemeContext();
     
     return (
       <div>
         <Title content={"Blog"}  />
-        <TabsList tabsList={tabList} activeTab={activeTab} onTabClick={onTabsClick}/>
+        <TabsList tabsList={tabList} activeTab={activeTab} onTabClick={onTabClick}/>
         <CardList cardsList={cardsList} />
         <SelectedPostModal />
         <SelectedImageModal />

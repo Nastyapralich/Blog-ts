@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostSelectors, getSinglePost } from "../../redux/reducers/postSlice";
 import { RoutesList } from "../router";
+import Loader from "../../components/loader/loader";
 
 const SelectedPost = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const SelectedPost = () => {
   const navigate = useNavigate()
 
   const singlePost = useSelector(PostSelectors.getSinglePost)
+  const isSinglePostLoading = useSelector(PostSelectors.getSinglePostLoading)
 
   const onHomeClick = () =>{
     navigate(RoutesList.AllPosts)
@@ -28,7 +30,7 @@ const SelectedPost = () => {
     }
   }, [id]);
 
-  return  singlePost ?(
+  return  singlePost && !isSinglePostLoading ?(
     <div className={style.selectedPostContainer}>
       <div className={style.breadcrumbs}>
         <span className={style.link} onClick={onHomeClick}>Home;</span>
@@ -60,7 +62,7 @@ const SelectedPost = () => {
         </div>
       </div>
     </div>
-  ): null;
+  ): (<Loader />);
 };
 
 export default SelectedPost;

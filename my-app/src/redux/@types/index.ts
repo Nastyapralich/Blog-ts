@@ -32,3 +32,27 @@ export type ActivateUserData ={
 }
 
 export type ActivateUserPayload = PayloadDataAndCallback<ActivateUserData>
+
+export type SignInUserData = {
+  email: string;
+  password: string;
+};
+
+export type SignInUserPayload = PayloadDataAndCallback<SignInUserData>;
+
+export type SignInUserResponse = {
+  access: string;
+  refresh: string;
+};
+
+
+export type UserInfoResponse = {
+  username: string;
+  id: number;
+  email: string;
+};
+
+
+export type RefreshResponseData = {
+  access: string;
+};
