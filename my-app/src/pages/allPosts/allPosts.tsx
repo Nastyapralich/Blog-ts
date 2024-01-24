@@ -9,6 +9,7 @@ import SelectedPostModal from "./selectedPostModal/selectedPostModal";
 import SelectedImageModal from "./selectedImageModal/selectedImageModal";
 import { useDispatch, useSelector } from "react-redux";
 import { PostSelectors, getAllPosts } from "../../redux/reducers/postSlice";
+import { AuthSelectors } from "../../redux/reducers/authSlice";
 
 
 const AllPosts = () => {
@@ -17,10 +18,14 @@ const AllPosts = () => {
     const cardsList = useSelector(PostSelectors.getAllPosts)
 
     const [activeTab, setActiveTab] = useState(TabsTypes.All);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    // const [isLoggedIn, setLoggedIn] = useState(false);
+    const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
     
-    
-    const tabsList = useMemo(
+     useEffect(() => {
+      dispatch(getAllPosts());
+    }, []);
+
+    const tabList = useMemo(
       () => [
         { key: TabsTypes.All, title: "All Posts", disabled: false },
         { key: TabsTypes.Popular, title: "Popular Posts", disabled: false },
@@ -33,23 +38,19 @@ const AllPosts = () => {
       [isLoggedIn]
     );
   
-    useEffect(() => {
-      dispatch(getAllPosts());
-    }, []);
+   
   
-    const onTabClick = (tab: TabsTypes) => () => {
+    const onTabsClick = (tab: TabsTypes) => () => {
       setActiveTab(tab);
-      if (tab === TabsTypes.Popular) {
-        setLoggedIn(true);
-      }
-    };
+     }
+
   
-    const {themeValue} = useThemeContext();
+    // const {themeValue} = useThemeContext();
     
     return (
       <div>
         <Title content={"Blog"}  />
-        <TabsList tabsList={tabsList} activeTab={activeTab} onTabClick={onTabClick}/>
+        <TabsList tabsList={tabList} activeTab={activeTab} onTabClick={onTabsClick}/>
         <CardList cardsList={cardsList} />
         <SelectedPostModal />
         <SelectedImageModal />

@@ -14,9 +14,11 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Input from "../input/input";
+import { useSelector } from "react-redux";
+import { AuthSelectors } from "../../redux/reducers/authSlice";
 
 const Header = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
 
   const [isOpened, setOpened] = useState(false);
   const [isSearch, setSearch] = useState(false);
@@ -78,9 +80,8 @@ const Header = () => {
           <div className={styles.navIcons}>
             <span onClick={handleSearchOpen}><FontAwesomeIcon icon={faMagnifyingGlass}/></span>
              <span onClick={onLoginButtonClick}>
-            {isLoggedIn && <UserName username={"A P"} />}
-            {!isLoggedIn && <FontAwesomeIcon icon={faUser} />}
           </span>
+          {isLoggedIn && <UserName />} : {<FontAwesomeIcon icon={faUser} />}
           </div>
          
         </div>
@@ -96,7 +97,7 @@ const Header = () => {
       {isOpened && (
         <div className={styles.menuContainer}>
           <div>
-            {isLoggedIn && <UserName username={"Anastasia Pralich"} />}
+            {isLoggedIn && <UserName/>}
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}

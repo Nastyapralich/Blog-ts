@@ -2,8 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import FormPageContainer from "../../components/formPagesContainer/formPagesContainer";
 import style from "./registrationConfirmation.module.scss";
 import { useDispatch } from "react-redux";
-import { activateUser } from "../../redux/reducers/authSlice";
+// import { activateUser } from "../../redux/reducers/authSlice";
 import { RoutesList } from "../router";
+import { activateUser } from "../../redux/reducers/authSlice";
 
 const RegistrationConfirmation = () => {
 
