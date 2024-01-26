@@ -65,23 +65,30 @@ function* signInUserWorker(action: PayloadAction<SignInUserPayload>) {
 
 
 function* userInfoWorker() {
-  console.log(1111);
+  // console.log(1111);
 
-  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-  console.log(accessToken);
+  // const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  // console.log(accessToken);
 
-  if (accessToken) {
-    const response: ApiResponse<UserInfoResponse> = yield call(
-      API.getUserInfo,
-      accessToken
-    );
+  // if (accessToken) {
+  //   const response: ApiResponse<UserInfoResponse> = yield call(
+  //     API.getUserInfo,
+  //     accessToken
+  //   );
 
-    if (response.ok && response.data) {
-      yield put(setUserInfo(response.data));
-      console.log(response.data);
-    } else {
-      console.error("Get User Info error", response.problem);
-    }
+  //   if (response.ok && response.data) {
+  //     yield put(setUserInfo(response.data));
+  //     console.log(response.data);
+  //   } else {
+  //     console.error("Get User Info error", response.problem);
+  //   }
+  // }
+  const response: ApiResponse<UserInfoResponse> | undefined =
+    yield callCheckingAuth(API.getUserInfo);
+  if (response && response?.ok && response?.data) {
+    yield put(setUserInfo(response.data));
+  } else {
+    console.error("Get User Info error", response?.problem);
   }
 }
 

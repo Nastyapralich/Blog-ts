@@ -17,6 +17,7 @@ interface InputProps {
 }
 
 const Input = forwardRef(function Input(props: InputProps, ref) {
+
   const onInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -27,7 +28,7 @@ const Input = forwardRef(function Input(props: InputProps, ref) {
     onChange: onInputChange,
     value: props.value,
     placeholder: props.placeholder,
-    className: classNames(styles.input, {
+    className: classNames(styles.input, props.className, {
       [styles.disabled]: props.disabled,
       [styles.errorInput]: props.errorText,
     }),

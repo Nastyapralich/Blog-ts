@@ -4,50 +4,25 @@ import PostCard, { PostCardSize } from "../postCard/card";
 import style from "./cardList.module.scss";
 import { useThemeContext } from "../../context/theme/context";
 import { useDispatch } from "react-redux";
-import {
-  setLikeStatus,
-  setSavedPosts,
-  setSelectedPost,
-  setSelectedPostModalOpened,
-} from "../../redux/reducers/postSlice";
-import {
-  setSelectedImageOpened,
-  setSelectedImage,
-} from "../../redux/reducers/imageSlice";
 import Loader from "../loader/loader";
+import useCardActions from "../../hooks/useCardActions";
 
 
 type CardListProps = {
   cardsList: Post[];
-  onMoreClick?: (post: Post) => void;
+  // onMoreClick?: (post: Post) => void;
   onImageClick?: (image: string) => void;
+  isLoading?: boolean;
   // onStatusClick?: (status: LikeStatus) => void;
 }
 
 const CardList = (props: CardListProps) => {
   const dispatch = useDispatch();
 
-  const onMoreClick = (post: Post) => () => {
-    dispatch(setSelectedPostModalOpened(true));
-    dispatch(setSelectedPost(post));
-  };
-
-  const onImageClick = (image: string) => () => {
-    dispatch(setSelectedImageOpened(true));
-    dispatch(setSelectedImage(image));
-  };
-
-  const onStatusClick = (card: Post) => (status: LikeStatus) => {
-    dispatch(setLikeStatus({ card, status }));
-  };
-
-  const onSaveClick = (card: Post) => () =>{
-    dispatch(setSavedPosts({card}))
-  }
-
+const {onStatusClick, onSaveClick, onMoreClick, onImageClick} = useCardActions()
   const { themeValue } = useThemeContext();
 
-  return props.cardsList.length ? (
+  return props.cardsList.length && !props.isLoading ? (
     <div
       className={classNames(style.cardListContainer, {
         [style.darkCardListContainer]: themeValue === Theme.Dark,
@@ -58,7 +33,7 @@ const CardList = (props: CardListProps) => {
           <PostCard
             size={PostCardSize.large}
             {...props.cardsList[0]}
-            onMoreClick={onMoreClick(props.cardsList[0])}
+            // onMoreClick={onMoreClick(props.cardsList[0])}
             onImageClick={onImageClick(props.cardsList[0].image)}
             onStatusClick={onStatusClick(props.cardsList[0])}
             onSaveClick={onSaveClick(props.cardsList[0])}
@@ -71,7 +46,7 @@ const CardList = (props: CardListProps) => {
                     key={index}
                     size={PostCardSize.medium}
                     {...element}
-                    onMoreClick={onMoreClick(element)}
+                    // onMoreClick={onMoreClick(element)}
                     onImageClick={onImageClick(element.image)}
                     onStatusClick={onStatusClick(element)}
                     onSaveClick={onSaveClick(element)}
@@ -91,7 +66,7 @@ const CardList = (props: CardListProps) => {
                 key={index}
                 size={PostCardSize.small}
                 {...element}
-                onMoreClick={onMoreClick(element)}
+                // onMoreClick={onMoreClick(element)}
                 onImageClick={onImageClick(element.image)}
                 onStatusClick={onStatusClick(element)}
                   onSaveClick={onSaveClick(element)}

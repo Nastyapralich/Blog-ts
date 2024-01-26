@@ -71,7 +71,7 @@ const AllPosts = () => {
       <div>
         <Title content={"Blog"}  />
         <TabsList tabsList={tabList} activeTab={activeTab} onTabClick={onTabClick}/>
-        <CardList cardsList={cardsList} />
+        <CardList cardsList={tabsContextSwitcher()} />
         <SelectedPostModal />
         <SelectedImageModal />
       </div>

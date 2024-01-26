@@ -19,7 +19,7 @@ interface ButtonProps{
 const Button = (props:ButtonProps) =>{
     const buttonStyle = style[props.type];
     return(
-        <div className={classNames(buttonStyle, { [style.disabled]: props.disabled })} onClick={props.onClick}>{props.title}</div>
+        <div className={classNames(buttonStyle, props.className, { [style.disabled]: props.disabled })} onClick={props.onClick}>{props.title}</div>
     )
 }
 

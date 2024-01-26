@@ -8,13 +8,12 @@ import { LikeStatus, Theme } from "../../@types";
 import { useSelector } from "react-redux";
 import { PostSelectors } from "../../redux/reducers/postSlice";
 import { useNavigate } from "react-router-dom";
-import SelectedPost from "../../pages/selectedPost/selectedPost";
-import { RoutesList } from "../../pages/router";
 
 export enum PostCardSize {
   large = "large",
   medium = "medium",
   small = "small",
+  search = "search"
 }
 
 type PostCardProps = {
@@ -23,7 +22,7 @@ type PostCardProps = {
   date: string;
   title: string;
   size: PostCardSize;
-  onMoreClick?: () => void;
+  // onMoreClick?: () => void;
   onImageClick?: () => void;
   onStatusClick: (status: LikeStatus) => void;
   onSaveClick?: () => void;
@@ -113,14 +112,18 @@ const PostCard = (props: PostCardProps) => {
               </span>
             }
           </div>
-          {props.onMoreClick && (
+          {/* {props.onMoreClick ? (
             <span
               onClick={props.onMoreClick}
               className={classNames(style.iconHorizontal, style.icon)}
             >
               <FontAwesomeIcon icon={faEllipsisVertical} rotation={90} />
             </span>
-          )}
+          ): <span
+          className={classNames(style.iconHorizontal, style.icon)}
+        >
+          <FontAwesomeIcon icon={faEllipsisVertical} rotation={90} />
+        </span>} */}
         </div>
       </div>
     </div>

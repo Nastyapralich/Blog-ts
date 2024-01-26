@@ -38,6 +38,10 @@ const Header = () => {
 
   const handleSearchOpen = () => {
     setSearch(!isSearch);
+    if(isSearch && inputValue){
+     navigate(`posts/${inputValue}`)
+     setInputValue("")
+    }
   };
   const navigate = useNavigate();
 
@@ -79,6 +83,7 @@ const Header = () => {
                   onChange={setInputValue}
                   value={inputValue}
                   title={""}
+                  
                 />
                 <Button
                   type={ButtonType.Primary}

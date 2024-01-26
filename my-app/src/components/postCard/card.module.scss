@@ -331,3 +331,52 @@ margin-right: 15px;
 .bookMark{
   color: black;
 }
+
+.search{
+    width: 500px;
+    height: 206px;
+  
+    .content {
+      margin-bottom: 24px;
+    }
+  
+    .textWrap {
+      max-width: 222px;
+    }
+  
+    .titleText{
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 28px;
+      color: $secondary;
+  
+      &:hover {
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+  
+  
+    .imgWrap {
+      width: 96px;
+      height: 96px;
+    }
+  
+    .titleTextDark{
+      color: white;
+      &:hover {
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+    .iconBookmark{
+    color: blue;
+  }
+  
+  .bookMark{
+    color: black;
+  }
+
+  }
+  
+  
