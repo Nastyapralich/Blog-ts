@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { all, takeLatest, call, put } from "redux-saga/effects";
-import { PostData, UserInfoResponse } from "../@types";
+import { GetPostsPayload, GetSearchedPostsPayload, PostData, UserInfoResponse } from "../@types";
 import {
   getAllPosts,
   getMyPosts,
@@ -19,13 +19,28 @@ import { ACCESS_TOKEN_KEY } from "../../utils/constants";
 import { getUserInf, setUserInfo } from "../reducers/authSlice";
 import callCheckingAuth from "./helpers/callChecking";
 
-function* postWorker() {
-  const response: ApiResponse<PostData> = yield call(API.getPosts);
+function* postWorker(action:PayloadAction<GetPostsPayload>) {
+  
+  const { offset, isOverwrite, ordering } = action.payload;
+  const response: ApiResponse<PostData> = yield call(
+    API.getPosts,
+    offset,
+    "",
+    ordering
+  );
   if (response.ok && response.data) {
-    yield put(setAllPosts(response.data.results));
+    const { count, results } = response.data;
+    yield put(
+      setAllPosts({
+        total: count,
+        postsList: results,
+        isOverwrite,
+      })
+    );
   } else {
-    console.error("Sign Up User error", response.problem);
+    console.error("Get Posts List error", response.problem);
   }
+
 }
 
 function* getSinglePostWorker(action: PayloadAction<string>) {
@@ -66,12 +81,24 @@ function* getMyPostsWorker() {
   }
 }
 
-function* getSearchedPostsWorker(action: PayloadAction<string>) {
-  const response: ApiResponse<PostData> = yield call(API.getPosts, action.payload );
+function* getSearchedPostsWorker(action: PayloadAction<GetSearchedPostsPayload>) {
+  const { offset, search, isOverwrite } = action.payload;
+  const response: ApiResponse<PostData> = yield call(
+    API.getPosts,
+    offset,
+    search
+  );
   if (response.ok && response.data) {
-    yield put(setSearchedPosts(response.data.results));
+    const { results, count } = response.data;
+    yield put(
+      setSearchedPosts({
+        postsList: results,
+        total: count,
+        isOverwrite:true,
+      })
+    );
   } else {
-    console.error("Search error", response.problem);
+    console.error("Searched Posts error", response.problem);
   }
 }
 

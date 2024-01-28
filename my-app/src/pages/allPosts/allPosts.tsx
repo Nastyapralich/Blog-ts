@@ -10,16 +10,22 @@ import SelectedImageModal from "./selectedImageModal/selectedImageModal";
 import { useDispatch, useSelector } from "react-redux";
 import { PostSelectors, getAllPosts, getMyPosts } from "../../redux/reducers/postSlice";
 import { AuthSelectors } from "../../redux/reducers/authSlice";
+import { PER_PAGE } from "../../utils/constants";
+import Paginate from "../../components/pagination/pagination";
 
 
 const AllPosts = () => {
 
     const dispatch = useDispatch()
-    const cardsList = useSelector(PostSelectors.getAllPosts)
+    const cardsList = useSelector(PostSelectors.getAllPosts);
+    const totalCount = useSelector(PostSelectors.getTotalCounts)
     const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
     const myPosts = useSelector(PostSelectors.getMyPosts);
+    const [currentPage, setCurrentPage] = useState(1)
 
     const [activeTab, setActiveTab] = useState(TabsTypes.All);
+
+    const pagesCount = useMemo(() => Math.ceil(totalCount / PER_PAGE), [totalCount])
 
     
     //  useEffect(() => {
@@ -30,9 +36,10 @@ const AllPosts = () => {
       if(activeTab === TabsTypes.MyFavorite){
         dispatch(getMyPosts())
       }else{
-        dispatch(getAllPosts());
+        const offset = (currentPage - 1) * PER_PAGE
+        dispatch(getAllPosts({offset, isOverwrite: true}));
       }
-    }, [activeTab])
+    }, [activeTab, currentPage])
 
 
     const tabsContextSwitcher = () => {
@@ -64,7 +71,11 @@ const AllPosts = () => {
       
     };
   
+ const onPageChange = ({selected} : {selected:number}) =>{
+console.log(selected);
+setCurrentPage(selected+1)
 
+ }
     // const {themeValue} = useThemeContext();
     
     return (
@@ -74,6 +85,7 @@ const AllPosts = () => {
         <CardList cardsList={tabsContextSwitcher()} />
         <SelectedPostModal />
         <SelectedImageModal />
+        <Paginate pagesCount={totalCount} onPageChange={onPageChange} currentPage={currentPage} />
       </div>
     );
   };

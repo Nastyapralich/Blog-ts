@@ -16,6 +16,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import Input from "../input/input";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthSelectors, logOutUser } from "../../redux/reducers/authSlice";
+import { clearSearchedPosts } from "../../redux/reducers/postSlice";
 
 const Header = () => {
   const isLoggedIn = useSelector(AuthSelectors.getLoggedIn);
@@ -39,6 +40,7 @@ const Header = () => {
   const handleSearchOpen = () => {
     setSearch(!isSearch);
     if(isSearch && inputValue){
+      dispatch(clearSearchedPosts())
      navigate(`posts/${inputValue}`)
      setInputValue("")
     }

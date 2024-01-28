@@ -56,3 +56,23 @@ export type UserInfoResponse = {
 export type RefreshResponseData = {
   access: string;
 };
+
+export type GetPostsPayload = {
+  offset: number;
+  isOverwrite: boolean;
+  ordering?: string;
+}
+
+export type SetPostsListPayload = {
+  total: number;
+  postsList: PostsList;
+  isOverwrite: boolean;
+};
+
+export type GetSearchedPostsPayload = {
+  offset: number;
+  search: string;
+  isOverwrite: boolean;
+};
+
+export type SetSearchedPostsPayload = SetPostsListPayload;

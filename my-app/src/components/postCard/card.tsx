@@ -35,7 +35,7 @@ const PostCard = (props: PostCardProps) => {
   const navigate = useNavigate();
 
   const onTitleClick = () => {
-    navigate(`post/${props.id}`);
+    navigate(`/post/${props.id}`);
   };
 
   const cardStyle = style[props.size];

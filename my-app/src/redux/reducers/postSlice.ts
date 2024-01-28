@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { LikeStatus, Post, PostsList, SaveStatus, Theme } from "../../@types";
 import { RootState } from "../store";
+import { GetPostsPayload, GetSearchedPostsPayload, SetPostsListPayload, SetSearchedPostsPayload } from "../@types";
 
 type InitialState = {
   isSelectedModalOpen: boolean;
@@ -12,7 +13,9 @@ type InitialState = {
   singlePost: Post | null;
   singlePostLoading: boolean;
   myPosts: PostsList;
-  searchedPosts: PostsList
+  searchedPosts: PostsList;
+  total: number;
+  totalSearchedPosts: number;
 };
 
 const initialState: InitialState = {
@@ -25,7 +28,9 @@ const initialState: InitialState = {
   singlePost: null,
   singlePostLoading: false,
   myPosts: [],
-  searchedPosts:[]
+  searchedPosts:[],
+  total: 0,
+  totalSearchedPosts: 0
 };
 
 const PostSlice = createSlice({
@@ -77,10 +82,18 @@ const PostSlice = createSlice({
         state.savedPosts.splice(savedIndex, 1); //либо поставили лайк, либо убрали
       }
     },
-    getAllPosts: (_, __: PayloadAction<undefined>) => {}, //сначала получить get пустой
-    setAllPosts: (state, action: PayloadAction<PostsList>) => {
+    getAllPosts: (_, __: PayloadAction<GetPostsPayload>) => {}, //сначала получить get пустой
+    setAllPosts: (state, action: PayloadAction<SetPostsListPayload>) => {
       //делаем set action, то что хотим получить и зписать в сагу
-      state.postsList = action.payload;
+      // state.postsList = action.payload;
+      const {total, isOverwrite, postsList} = action.payload;
+      state.total = total;
+      if (isOverwrite) {
+        state.postsList = postsList;
+      } else {
+        state.postsList.push(...postsList);
+      }
+      
     },
     getSinglePost: (_, __: PayloadAction<string>) => {},
     setSinglePostLoading: (state, action: PayloadAction<boolean>) => {
@@ -93,9 +106,18 @@ const PostSlice = createSlice({
     setMyPosts:(state, action: PayloadAction<PostsList>) => {
       state.myPosts = action.payload
     },
-    getSearchedPosts:(_, __:PayloadAction<string>) => {}, //string тк надо дать запрос, а запрос у нас стринг,
-    setSearchedPosts:(state, action: PayloadAction<PostsList>) => {
-      state.searchedPosts = action.payload
+    getSearchedPosts:(_, __:PayloadAction<GetSearchedPostsPayload>) => {}, //string тк надо дать запрос, а запрос у нас стринг,
+    setSearchedPosts: (
+      state,
+      action: PayloadAction<SetSearchedPostsPayload>
+    ) => {
+      const { total, postsList, isOverwrite } = action.payload;
+      state.totalSearchedPosts = total;
+      state. searchedPosts.push(...postsList);
+    
+    },
+    clearSearchedPosts:(state) =>{
+      state.searchedPosts = []
     }
   },
 });
@@ -114,6 +136,7 @@ export const {
   setMyPosts,
   getSearchedPosts,
   setSearchedPosts,
+  clearSearchedPosts
 } = PostSlice.actions;
 
 export const PostSelectors = {
@@ -128,6 +151,8 @@ export const PostSelectors = {
   getSinglePostLoading: (state: RootState) => state.postReducer.singlePostLoading,
   getMyPosts: (state:RootState) => state.postReducer.myPosts,
   getSearchedPosts: (state: RootState) => state.postReducer.searchedPosts,
+  getTotalCounts: (state:RootState) => state.postReducer.total,
+  getTotalSearchedPosts: (state: RootState) => state.postReducer.totalSearchedPosts
 };
 
 export default PostSlice.reducer;
